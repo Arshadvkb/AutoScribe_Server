@@ -16,7 +16,7 @@ def analyze_text(text:TextRequest):
 
 
     try:
-        prompt =""" 
+        prompt = f""" 
         
         You are an expert study assistant.
         Your task is to analyze the given text and convert it into clear study material.
@@ -68,8 +68,9 @@ def analyze_text(text:TextRequest):
         Text to Analyze:
         {text}
         """
-        
+
         res = ai(prompt)
+        print(f"AI analysis result: {res}")
 
         return {"text": text, "analysis":res}
     except Exception as e:

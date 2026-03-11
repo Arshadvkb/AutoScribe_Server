@@ -7,18 +7,18 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",    # React default
-    "http://localhost:5173",    # Vite default
+    "http://localhost:3000",   
+    "http://localhost:5173",    
     "https://your-production-site.com",
 ]
 
-# 2. Add the middleware to the app
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,            # List of allowed domains
-    allow_credentials=True,           # Allow cookies/auth headers
-    allow_methods=["*"],              # Allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],              # Allow all headers
+    allow_origins=origins,           
+    allow_credentials=True,          
+    allow_methods=["*"],            
+    allow_headers=["*"],             
 )
 
 app.include_router(router)
