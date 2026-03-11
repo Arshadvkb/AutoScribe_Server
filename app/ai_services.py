@@ -1,20 +1,21 @@
-import google.generativeai as genai
+import google.genai as genai
 import os
 
 api_key=os.getenv("GENAI_API_KEY")
-genai.configure(api_key=api_key)
+client = genai.Client(api_key=api_key)
 
 def ai(prompt: str):
         try:
-  
-          model = genai.GenerativeModel("gemini-2.5-flash-lite")
-         
-          response = model.generate_content(prompt)
-        
+            
+            response = client.models.generate_content(
+            model="gemini-2.0-flash", 
+            contents=prompt
+            )
+
        
-          if response.text:
+            if response.text:
                 return response.text
-          else:
+            else:
                 return "The model returned an empty response."
                 
         except Exception as e:
