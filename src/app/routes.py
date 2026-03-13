@@ -1,7 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
-from app.ai_services import ai
-from app.schemas import TextRequest
+from src.app.ai_services import ai
+from src.app.schemas import TextRequest
 
 router = APIRouter()
 
@@ -10,10 +10,10 @@ router = APIRouter()
 def ping():
     return {"ping": "pong"}
 
-@router.post("/analyze/text")
-def analyze_text(text:TextRequest):
-    print(f"Received text for analysis: {text}")
 
+@router.post("/analyze/text")
+def analyze_text(text: TextRequest):
+  
 
     try:
         prompt = f""" 
@@ -35,7 +35,7 @@ def analyze_text(text:TextRequest):
         1. Title of the Topic
 
         2. Summary
-        Provide a short 3–5 sentence explanation of the topic.
+        Provide a short 3-5 sentence explanation of the topic.
 
         3. Detailed Notes
         Create structured notes with headings and subheadings.
@@ -49,15 +49,15 @@ def analyze_text(text:TextRequest):
         5. Brain Map (Text Format)
 
         Main Topic
-        ├── Subtopic 1
-        │   ├── Key idea
-        │   └── Key idea
-        ├── Subtopic 2
-        │   ├── Key idea
-        │   └── Key idea
-        └── Subtopic 3
-            ├── Key idea
-            └── Key idea
+        - Subtopic 1
+          - Key idea
+          - Key idea
+        - Subtopic 2
+          - Key idea
+          - Key idea
+        - Subtopic 3
+          - Key idea
+          - Key idea
 
         Rules:
         - Keep explanations simple and concise.
@@ -66,12 +66,12 @@ def analyze_text(text:TextRequest):
         - Maintain logical structure.
 
         Text to Analyze:
-        {text}
+        {text.text}
         """
 
         res = ai(prompt)
         print(f"AI analysis result: {res}")
 
-        return {"text": text, "analysis":res}
+        return {"text": text.text, "analysis": res}
     except Exception as e:
-        return {"error in ai analysis": str(e)}
+        raise HTTPException(status_code=500, detail=str(e))

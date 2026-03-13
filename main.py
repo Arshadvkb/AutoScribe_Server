@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
 load_dotenv()
-from app.routes import router
+from src.app.routes import router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -11,6 +11,7 @@ origins = [
     "http://localhost:5173",    
     "https://your-production-site.com",
 ]
+
 
 
 app.add_middleware(
