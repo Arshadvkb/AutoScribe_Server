@@ -18,12 +18,11 @@ def _get_client():
     _client = genai.Client(api_key=api_key)
     return _client
 
-
 def ai(prompt: str):
     try:
         client = _get_client()
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-2.5-flash",
             contents=prompt,
         )
 
@@ -34,3 +33,17 @@ def ai(prompt: str):
     except Exception as e:
         print(f"GenAI Error: {e}")
         return f"AI Service Error: {str(e)}"
+
+
+def models():
+    client = _get_client()
+    for model in client.models.list():
+        print(f"Name: {model.name}")
+        print(f"  Display Name: {model.display_name}")
+        print(f"  Supported Methods: {model.supported_generation_methods}")
+        print("-" * 20)
+
+if __name__ == "__main__":
+    from dotenv import load_dotenv
+    load_dotenv()
+    models()

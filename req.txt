@@ -4,4 +4,7 @@ google-genai==1.66.0
 uvicorn==0.41.0
 python-multipart
 pymupdf
+markdown
+xhtml2pdf
+
 python-dotenv
