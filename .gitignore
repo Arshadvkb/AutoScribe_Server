@@ -2,3 +2,6 @@ _*pycache_*
 env
 .env
 src/utils/ainotegenerator-firebase-adminsdk-fbsvc-5421873e66.json
+skills-lock.json
+.agent/
+.agents/
